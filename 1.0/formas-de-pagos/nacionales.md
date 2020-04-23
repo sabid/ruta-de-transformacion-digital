@@ -2,259 +2,82 @@
 
 [[toc]]
 
-* BAC Honduras
+* BAC Honduras Ecomerce
 * Promerica
 * TENGO
 * Tigo Money
 
 
-The easiest way to start an export is to create a custom export class. We'll use an invoices export as example.
+## BAC Honduras Ecomerce
+BAC Credomatic le ofrece una plataforma ágil y segura que le permite procesar ventas a sus clientes desde su propia página web.
 
-Create a new class called `InvoicesExport` in `app/Exports`:
+### Beneficios
+* Procesamiento y reportería en tiempo real.
+* Aumento significativo de las ventas al tener acceso a uno de los principales canales de ventas a través de Internet
+* La marca certifica las transacciones (3D Secure)
+* Comercio afiliado reduce la exposición a fraude
+* Aumento del nivel de confianza de los clientes, al poder pagar de una forma segura en un sitio de
 
-```php
-namespace App\Exports;
+### Condiciones 
 
-use App\Invoice;
-use Maatwebsite\Excel\Concerns\FromCollection;
+* Matrícula de $175
+* Mantenimiento mensual de $50
+* Transacciones de Visa y Master Card $0,12 por transacción
+* Otras transacciones, anulaciones, devoluciones y cierres $0,07 por cada vez que se utiliza.
+* Por el alto riesgo de fraude se establece la posibilidad de solicitar un depósito en garantía según análisis de riesgo sobre el comercio solicitante.
 
-class InvoicesExport implements FromCollection
-{
-    public function collection()
-    {
-        return Invoice::all();
-    }
-}
-```
 
-In your controller we can now download this export:
-
-```php
-public function export() 
-{
-    return Excel::download(new InvoicesExport, 'invoices.xlsx');
-}
-```
-
-Or store it on a disk, (e.g. s3):
-
-```php
-public function storeExcel() 
-{
-    return Excel::store(new InvoicesExport, 'invoices.xlsx', 's3');
-}
-```
-
-:bulb: More about storing exports can be found in the [storing exports on disk page](/3.1/exports/store.html).
-
+### Requisitos
+Por la naturaleza de riesgo del e-commerce, toda solicitud de afiliación del servicio, pasará por un análisis previo para la definición de las condiciones de afiliación, con base el tipo de actividad comercial, si el cliente es conocido o no o si es nuevo.
 :::tip
-If you want to use relationships in Collection, combine with [Mapping Data](/3.1/exports/mapping.html)
+Horarios
 :::
 
-## Using custom structures
+## Promerica Ecomerce
 
-If you are not using Eloquent or having another datasource (e.g. an API, MongoDB, Cache, ...) you can also return a custom collection:
+Banco Promerica pone a su disposición la herramienta CyberSource que le ofrece:
 
-```php
-namespace App\Exports;
+* Pasarela de pagos
+* Prevención del fraude
+* Servicio de Tokenización
 
-use App\Invoice;
-use Maatwebsite\Excel\Concerns\FromCollection;
+### Beneficios de contar con una tienda en línea:
 
-class InvoicesExport implements FromCollection
-{
-    public function collection()
-    {
-        return new Collection([
-            [1, 2, 3],
-            [4, 5, 6]
-        ]);
-    }
-}
-```
+* Maximizar: volumen de ventas, automatizar procesos, experiencia de compra positiva
+* Optimizar: costos de operación
+* Disminuir: tasas de rechazo, tasas de fraude, riesgos de pago online, costos operativos
+* Habilitar: productos, nuevos modelos de negocio, canales de venta
 
-## Using arrays
+## TENGO
+Es una empresa de tecnología que brinda soluciones de pago y cobros electrónicos que busquen incrementar la eficiencia para las empresas afiliadas; así como mayor acceso, seguridad y conveniencia a los usuarios y la población.
 
-If you prefer to use plain arrays over Collections, you can use the `FromArray` concern:
+### Rubro
+* Servicios públicos.
+* Planes, cuotas, y mensualidades.
+* Transacciones bancarias.
+* Compra de boletos.
 
-```php
-namespace App\Exports;
+### Requisitos
+* Escritura de Constitución.
+* RTN de la empresa.
+* Fracturación CAI.
+* Recibo público original.
+* Brindar datos generales del propietario  (Nombre del propietario, ID, RTN, Teléfono, Celular)
+* Llenar la solitud de registro.
 
-use App\Invoice;
-use Maatwebsite\Excel\Concerns\FromArray;
+### Beneficios
+* Pago de planilla.
+* Pago de clientes. 
+* Pago de proveedores.
+* Pago a proveedores.
+* Tengo ofertas.
+* Capacitaciones.
+* Prestamos.
 
-class InvoicesExport implements FromArray
-{
-    public function array(): array
-    {
-        return [
-            [1, 2, 3],
-            [4, 5, 6]
-        ];
-    }
-}
-```
+### Comisión
+3% de comisión.
 
-If you need to pass data from the controller to your export, you can use the constructor to do so:
-
-```php
-namespace App\Exports;
-
-use App\Invoice;
-use Maatwebsite\Excel\Concerns\FromArray;
-
-class InvoicesExport implements FromArray
-{
-    protected $invoices;
-
-    public function __construct(array $invoices)
-    {
-        $this->invoices = $invoices;
-    }
-
-    public function array(): array
-    {
-        return $this->invoices;
-    }
-}
-```
-
-In your controller you can now use the constructor of the export class:
-
-```php
-public function export() 
-{
-    $export = new InvoicesExport([
-        [1, 2, 3],
-        [4, 5, 6]
-    ]);
-
-    return Excel::download($export, 'invoices.xlsx');
-}
-```
-
-## Dependency injection
-
-In case your export needs dependencies, you can inject the export class:
-
-```php
-namespace App\Exports;
-
-use Maatwebsite\Excel\Concerns\FromCollection;
-
-class InvoicesExport implements FromCollection
-{
-    public function __construct(InvoicesRepository $invoices)
-    {
-        $this->invoices = $invoices;
-    }
-
-    public function collection()
-    {
-        return $this->invoices->all();
-    }
-}
-```
-
-```php
-public function export(Excel $excel, InvoicesExport $export) 
-{
-    return $excel->download($export, 'invoices.xlsx');
-}
-```
-
-## Strict null comparisons
-
-If you want your `0` values to be actual `0` values in your Excel sheet instead of `null` (empty cells), you can use `WithStrictNullComparison`.
-
-```php
-namespace App\Exports;
-
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
-
-class InvoicesExport implements FromCollection, WithStrictNullComparison
-{
-    public function __construct(InvoicesRepository $invoices)
-    {
-        $this->invoices = $invoices;
-    }
-
-    public function collection()
-    {
-        return $this->invoices->all();
-    }
-}
-```
-
-## Custom start cell
-The default start cell is _A1_. Implementing the `WithCustomStartCell` concern in your export class allows you to specify a custom start cell.
-
-```php
-namespace App\Exports;
-
-use App\Invoice;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-
-class InvoicesExport implements FromCollection, WithCustomStartCell
-{
-    public function collection()
-    {
-        return Invoice::all();
-    }
-
-    public function startCell(): string
-    {
-        return 'B2';
-    }
-}
-```
-
-:::warning
-`WithCustomStartCell` is only supported for `FromCollection` exports.
-:::
-
-## Storing raw contents
-
-If you want to receive the raw contents of the exported file, you can use the `raw()` method:
-
-```php
-$contents = Excel::raw(new InvoicesExport, \Maatwebsite\Excel\Excel::XLSX);
-```
-
-## Collection macros
-
-The package provides some macro to Laravel's collection class to easily download or store a collection.
-
-### Downloading a collection as Excel
-
-```php
-User:all()->downloadExcel(
-    $filePath,
-    $writerType = null,
-    $headings = false
-)
-```
-
-It doesn't have to be an Eloquent collection to work:
+## TIGO MONEY
+Tigo Money es la forma más rápida y segura para realizar tus transacciones directamente desde tu celular a través de la billetera electrónica. Tu dinero en efectivo se convierte en dinero electrónico que se almacena en una cuenta en tu celular. Tu dinero es protegido con un PIN secreto al que nadie puede acceder.
 
 
-```php
-(new Collection([[1, 2, 3], [1, 2, 3]]))->downloadExcel(
-    $filePath,
-    $writerType = null,
-    $headings = false
-)
-```
-
-### Storing a collection on disk
-
-```php
-User:all()->storeExcel(
-    $filePath,
-    $disk = null,
-    $writerType = null,
-    $headings = false
-)
-```

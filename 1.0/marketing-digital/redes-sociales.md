@@ -7,6 +7,12 @@
 * Youtube
 * WhatsApp Business
 
+# Facebook
+# Instagram
+# Youtube
+# WhatsApp Business
+
+
 The entire Laravel Excel philosophy evolves around having `Export` and/or `Import` objects.
 
 ## Directory structure

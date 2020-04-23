@@ -2,155 +2,124 @@
 
 [[toc]]
 
-## Queuing chunks
+## Glovo
+Es un servicio de delivery que se encarga de comprar, recoger y entregar cualquier pedido, mediante su App.
 
-When using the `WithChunkReading` concern, you can also choose to execute each chunk into a queue job. You can do so by simply adding the `ShouldQueue` contract.
+### Rubro
+* Helados y snacks.
+* Comida.
+* Mercados.
+* Alcohol y bebidas.
+* Recoger o enviar.
+* Farmacia.
+* Regalos y más.
 
-```php
-namespace App\Imports;
+### Requisitos
+* Completar el formulario que se encuentra en línea (nombre del negocio, ubicación exacta, teléfonos, correo electrónico y tipo de negocio).
+* Contar con una conexión a internet, es 100% indispensable.
 
-use App\User;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
+### Beneficios
+* Aumenta tus ingresos.
+* Análisis para realizar el seguimiento de tus pedidos y ganancias de Glovo.
+* Amplía tu zona, llega a nuevos clientes.
+* Ventaja competitiva. Sé el primero.
+* Mercancía asegurada hasta los 2.000€.
 
-class UsersImport implements ToModel, WithChunkReading, ShouldQueue
-{
-    public function model(array $row)
-    {
-        return new User([
-            'name' => $row[0],
-        ]);
-    }
-    
-    public function chunkSize(): int
-    {
-        return 1000;
-    }
-}
-```
+## Hugo
+Aplicación móvil que te permite ordenar comida de tus restaurantes favoritos, bebidas, transporte, medicinas, supermercados y más en un solo lugar.
 
-Each chunk of 1000 rows will now be executed into a queue job.
+### Rubro
+* Alimentos.
+* Bebidas.
+* HugoCash.
+* Supermercado.
+* Mandaditos.
+* Ferretería y hogar.
+* Salud.
+* HugoCare.
+* Lifestyle.
 
-:::warning
-`ShouldQueue` is only supported in combination with `WithChunkReading`.
-:::
+### Requisitos
+* Envío de menú en digital.
+* Fotos en tamaño 1024 X 768 px en calidad full en formato JPG (Aspect ratio 4X3).
+* Llenar el formulario para la creación de usuarios comercial.
+* Agendar capacitación para personal de cada sucursal. 
+* Equipo para recibir pedidos (Teléfono o tablet Android). Especificaciones mínimas: 
+     +Versión kitkat o superior (De preferencia Android Stock).
+     +Almacenamiento mínimo de 8 GB. 
+     +Con 1 GB de RAM.
+     +Pantalla mínima de 5 pulgadas. 
+     +GPS.
+     +Cuádruple núcleo 1.3 GHz.
+     +Contar con un paquete de datos de navegación activo.
+* Crear código de descuento a Hugo en el sistema.
 
-### Explicit queued imports
+### Beneficios
+* Aumenta tus ventas. 
+* Controla tus entregas.
+* Conoce tus clientes.
 
-You can explicitly queue the import by using `::queueImport`. 
+## Izzy
+Es una aplicación móvil que te permite ordenar comida de tus restaurantes favoritos, hacer tus compras de bebidas, supermercado, medicamentos, tiendas. Cumplir con tus necesidades de mensajería y mandaditos.
 
-```
-Excel::queueImport(new UsersImport, 'users.xlsx');
-```
+### Rubro
+* Comidas.
+* Bebidas.
+* Tiendas.
+* Farmacia.
+* Mensajería y mandaditos.
+* Aventura.
 
-When using the `Importable` trait you can use the `queue` method:
+### Requisitos
+* Completar datos. 
+* Completar formulario que se envía a su correo electrónico. 
+* Contar con conexión a internet altamente eficiente.
 
-```
-(new UsersImport)->queue('users.xlsx');
-```
+### Beneficios
+* Ayuda a la generación de ingresos.
+* Ventaja diferencial.
+* Ampliación de clientes.
 
-:::warning
-The `ShouldQueue` is always required.
-:::
+## Ocho
+Aplicación móvil que brinda un servicio de mensajería a pedido que compra, recoge y entrega productos que han sido solicitados.
 
-### Implicit queued imports
+### Rubro
+* Comida.
+* Bebida.
+* Conveniencia.
+* Mensajería.
+* Tiendas.
+* Eventos.
+* Amenidades.
+* Servicios generales.
 
-When `ShouldQueue` is used, the import will automatically be queued.
+### Requisitos
+* Estar dentro del área de cobertura.
+* Estar inscrito bajo el régimen de facturación CAI.
+* Disponer de un dispositivo Android para recibir los pedidos.
 
-```
-Excel::import(new UsersImport, 'users.xlsx');
-```
+### Beneficios
+* Tiempos de entrega menores a 45 minutos.
+* Aumenta tus ingresos.
+* Llega a nuevos clientes.
 
-## Handling failures in queued imports
+## Ryte
+Es una aplicación que te conecta a conductores registrados con pasajeros que desean movilizarte por la ciudad de manera segura, rápida y confiable.
 
-When queuing imports you might want a way to handle failed imports. You can do this by using the `ImportFailed` event.
+### Rubro
+* Movilizar  por la ciudad.
+* Envió de encomiendas.
 
-```php
-namespace App\Imports;
+### Requisitos
+* Ser mayor de edad.
+* Descargar la App.
+* Registrarse.
+* Vehículo 2005 en adelante (Tegucigalpa).
+* Vehículo 2010 en adelante (San Pedro Sula).
 
-use App\User;
-use App\Notifications\ImportHasFailedNotification;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
+### Beneficios
+* Aumento de ingresos. 
+* Aumento de clientes.
 
-class UsersImport implements ToModel, WithChunkReading, ShouldQueue, WithEvents
-{
-    public function __construct(User $importedBy)
-    {
-        $this->importedBy = $importedBy;
-    }
-
-    public function registerEvents(): array
-    {
-        return [
-            ImportFailed::class => function(ImportFailed $event) {
-                $this->importedBy->notify(new ImportHasFailedNotification);
-            },
-        ];
-    }
-}
-```
-
-## Appending jobs
-
-When queuing an import an instance of Laravel's `PendingDispatch` is returned. This means you can chain extra jobs that will be added to the end of the queue and only executed if all import jobs are correctly executed.
-
-```php
-(new UsersImport)->queue('users.xlsx')->chain([
-    new NotifyUserOfCompletedImport(request()->user()),
-]);
-```
-
-```php
-namespace App\Jobs;
-
-use App\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\SerializesModels;
-
-class NotifyUserOfCompletedImport implements ShouldQueue
-{
-    use Queueable, SerializesModels;
-    
-    public $user;
-    
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
-    public function handle()
-    {
-        $this->user->notify(new ImportReady());
-    }
-}
-```
-
-## Custom queues
-
-Because `PendingDispatch` is returned, we can also change the queue that should be used.
-
-```php
-(new UsersImport)->queue('users.xlsx')->allOnQueue('imports');
-```
-
-## Multi-server setup
-
-If you are dealing with a multi-server setup (using e.g. a loadbalancer), you might want to make sure the temporary file is the same for each job. You can achieve this by configuring a remote temporary file in the config.
-
-In `config/excel.php`
-
-```php
-'temporary_files' => [
-    'remote_disk' => 's3',
-],
-```
-
-## Notes
-:::warning
-You currently cannot queue `xls` imports. PhpSpreadsheet's Xls reader contains some non-utf8 characters, which makes it impossible to queue.
-:::
+### Rubro Permitido
+* Conductores. 

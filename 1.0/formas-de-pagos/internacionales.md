@@ -6,89 +6,38 @@
 * Stripe
 * Pagadito (Colcar URL al sitio web de pagadito)
 
-To allow the export to have multiple sheets, the `WithMultipleSheets` concern should be used. 
-The `sheets()` method expects an array of sheet export objects to be returned.
+## Paypal
+PayPal es un servicio global que te permite enviar pagos a la cuenta del vendedor con tu tarjeta de crédito, pero sin compartir tu información financiera.
+Más información acerca de PayPal
 
-```php
-namespace App\Exports;
+### Beneficios
+* Ten certeza de que tus pagos son seguros.
+* Ya sea que te dediques a comprar o a vender, obtienes la seguridad que deseas; además, cuentas con la Protección al Comprador o al Vendedor en tus transacciones (aplican requisitos).
+* Paga con PayPal en comercios grandes y pequeños, en más de 202 países alrededor del mundo; hazlo de manera segura por Internet y a través de aplicaciones
+* Convierte 16 dígitos en un solo clic.
+* Ahora PayPal es mucho más rápido, y con la misma seguridad de siempre. Activa One TouchTM para omitir el inicio de sesión y pagar en solo un clic
 
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+## Stripe
+Stripe desarrolla las herramientas más potentes y flexibles para el comercio electrónico. Las API de Stripe, rigurosamente diseñadas, y su funcionalidad inigualable te ayudan a crear el mejor producto posible para tus usuarios, ya sea un servicio de suscripción, un marketplace «on demand», una tienda de comercio electrónico o una plataforma de financiación colectiva. Miles y miles de las empresas de tecnología más innovadoras del mundo crecen con más rapidez y eficiencia gracias a la integración de Stripe.
 
-class InvoicesExport implements WithMultipleSheets
-{
-    use Exportable;
+### Beneficios
+* Fiabilidad demostrada
+* Alcance global con una sola integración
+* Conocimientos expertos del sector integrados
 
-    protected $year;
-    
-    public function __construct(int $year)
-    {
-        $this->year = $year;
-    }
+## Pagadito
+No necesita sitio web para cobrarle a sus clientes, emita facturas
+electrónicas (invoices) a través de Pagadito para acelerar su pago
+en línea de forma segura. Afíliese a nuestra lista de comerciantes
+certificados y disfrute de nuestro sistema.
 
-    /**
-     * @return array
-     */
-    public function sheets(): array
-    {
-        $sheets = [];
-
-        for ($month = 1; $month <= 12; $month++) {
-            $sheets[] = new InvoicesPerMonthSheet($this->year, $month);
-        }
-
-        return $sheets;
-    }
-}
-```
-
-## Sheet classes
-
-The `InvoicesPerMonthSheet` can implement concerns like `FromQuery`, `FromCollection`, ... 
-
-```php
-namespace App\Exports\Sheets;
-
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithTitle;
-
-class InvoicesPerMonthSheet implements FromQuery, WithTitle
-{
-    private $month;
-    private $year;
-
-    public function __construct(int $year, int $month)
-    {
-        $this->month = $month;
-        $this->year  = $year;
-    }
-
-    /**
-     * @return Builder
-     */
-    public function query()
-    {
-        return Invoice
-            ::query()
-            ->whereYear('created_at', $this->year)
-            ->whereMonth('created_at', $this->month);
-    }
-
-    /**
-     * @return string
-     */
-    public function title(): string
-    {
-        return 'Month ' . $this->month;
-    }
-}
-```
-
-This will now download an xlsx of all invoices from the current year, with 12 worksheets representing each month of the year.
-
-```php
-public function download() 
-{
-    return (new InvoicesExport(2018))->download('invoices.xlsx');
-}
-```
+### Beneficios
+* Simplifique sus pagos y ventas en línea. Disfrute de
+un mundo sin filas y sin fronteras, sin firmas y sin
+complicaciones.
+* La información de su tarjeta de crédito o débito
+está protegida!
+* Realice cobros y pagos en línea, solicitudes de pago
+vía e-mail, transferencias electrónicas, descargas de
+reportes contables en tiempo real, retiros bancarios
+locales y mucho más.
