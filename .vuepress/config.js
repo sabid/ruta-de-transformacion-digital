@@ -53,7 +53,7 @@ module.exports = {
 
     themeConfig: {
         logo: '/assets/img/logo-small.png',
-        repo: 'maatwebsite/Laravel-Excel',
+        repo: 'sabid/ruta-de-transformacion-digital',
         docsRepo: 'contacto@negociosonline.net',
         docsBranch: 'master',
         editLinks: true,
@@ -63,7 +63,7 @@ module.exports = {
         algolia: {
             apiKey: 'aadef574be1f9252bb48d4ea09b5cfe5',
             indexName: 'demo_ecommerce',
-            algoliaOptions: {'facetFilters': ["version:3.1"]},
+            algoliaOptions: {'facetFilters': ["version:1.0"]},
         },
 
         nav: [
@@ -71,7 +71,7 @@ module.exports = {
                 text: 'Version',
                 link: '/',
                 items: [
-                    {text: '1.0', link: '/3.1/'},
+                    {text: '1.0', link: '/1.0/'},
                     // {text: 'LE 3.0', link: '/3.0/'},
                     // {text: 'LE 2.1', link: '/2.1/', divider: true},
                     //{text: 'CSV 1.0', link: '/csv/1.0/', divider: true},
@@ -82,11 +82,7 @@ module.exports = {
         ],
 
         sidebar: {
-            '/3.1/': require('./3.1'),
-            '/3.0/': require('./3.0'),
-            '/2.1/': require('./2.1'),
-            '/nova/1.0/': require('./nova/1.0'),
-            '/nova/1.1/': require('./nova/1.1'),
+            '/1.0/': require('./1.0'),
             //'/csv/1.0/': require('./csv/1.0'),
         },
     },
