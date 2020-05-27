@@ -1,6 +1,6 @@
 module.exports = [
     {
-        title: 'Ruta de Transformación Dígital',
+        title: 'Transformación Dígital',
         collapsable: true,
         children: prefix('ruta-de-transformacion-digital', [
             'comercio-electronico',
@@ -33,7 +33,7 @@ module.exports = [
         collapsable: true,
         children: prefix('logistica', [
             '',
-            'proveedores',
+            'tipo-de-productos',
             'tiempos-de-entega',
             'metodo-de-envio'
         ]),
@@ -57,6 +57,14 @@ module.exports = [
             '',
         ]),
     },
+    {
+        title: 'Taller Tienda WooCommerce',
+        collapsable: false,
+        children: prefix('tienda-en-linea/woocommerce', [
+            '',
+            'asistente-de-configuracion',
+        ]),
+    }
 ];
 
 function prefix(prefix, children) {

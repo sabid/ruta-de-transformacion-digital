@@ -4,79 +4,11 @@ pageClass: no-toc
 
 # Formas de Pagos
 
-[[toc]]
-
-:muscle: Create an export class in `app/Exports`
-
-You may do this by using the `make:export` command.
+Las formas de pago podemos segmentarlas por medio de proveedores Nacionales e Internacionales
 
 ## Nacionales
-
-* BAC Credomatic Honduras
-* Banco Promerica
-* Pixel
+Los proveedores nacionales son las instituciones bancarias, lo cual tiene la ventaja de disponer 
+del dinero por las ventas, de forma casi inmediata.
 
 ## Internacionales
-* Paypal
-* Stripe
-
-```
-php artisan make:export UsersExport --model=User
-```
-
-The file can be found in `app/Exports`:
-
-::: vue
-.
-├── app
-│   ├── `Exports` 
-│   │   ├── UsersExport.php
-│ 
-└── composer.json
-:::
-
-If you prefer to create the export manually, you can create the following in `app/Exports`:
-
-```php
-<?php
-
-namespace App\Exports;
-
-use App\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
-
-class UsersExport implements FromCollection
-{
-    public function collection()
-    {
-        return User::all();
-    }
-}
-```
-
-:fire: In your controller you can call this export now:
-
-```php
-<?php
-
-namespace App\Http\Controllers;
-
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Facades\Excel;
-
-class UsersController extends Controller 
-{
-    public function export() 
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
-    }
-}
-```
-
-And finally add a route to be able to access the export:
-```php
-Route::get('users/export/', 'UsersController@export');
-```
-
-
-:page_facing_up: Find your `users.xlsx` in your downloads folder!
+Los proveedores de pagos internacionales son mas flexibles en la configuración de su sitio web.

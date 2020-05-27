@@ -2,18 +2,14 @@
 pageClass: no-toc
 ---
 
-# Ecommerce
+# Transformación Digital
+Las empresas deben ir complementando sus estrategias de venta con el comercio electrónico.
 
-El ecommerce consite en vender productos y servicios por medio de internet.
+## Factores que impulsan el comercio electrónico
 
-:fire: [PhpSpreadsheet](https://phpspreadsheet.readthedocs.io/) is a library written in pure PHP and providing a set of classes that allow you to read from and to write to different spreadsheet file formats, like Excel and LibreOffice Calc.
+### La tecnología
 
-## Laravel Excel Features
+El acceso a internet por medio de dispositivos electrónicos como celulares, computadoras.
 
-* Easily export collections to Excel.
-* Export queries with automatic chunking for better performance.
-* Queue exports for better performance.
-* Easily export Blade views to Excel.
-* Easily import to collections.
-* Read the Excel file in chunks.
-* Handle the import inserts in batches.
+### Los clientes
+El cliente esta permanentemente conectado a internet lo que permite que puedan evaluar y comprar productos y servicios.

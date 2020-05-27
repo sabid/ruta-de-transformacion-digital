@@ -4,38 +4,17 @@ pageClass: no-toc
 
 # Tiempos de Entrega
 
-Importing a large file to Eloquent models, might quickly become a bottleneck as every row results into an insert query. 
+Aquí también volvemos a dividir en dos grandes grupos, según se trate del mercado nacional o internacional:
 
-With the `WithBatchInserts` concern you can limit the amount of queries done by specifying a batch size. This batch size will determine how many models will be inserted into the database in one time. This will drastically reduce the import duration.
+Nacional: Tenemos servicios en el mismo día, antes de las 10:00 a.m., 1:00 pm. o 24:00 horas; entregas en sábado; entregas en 24-72 horas; entregas por la mañana o tarde.
+ 
 
-```php
-namespace App\Imports;
+Internacional: Dependiendo de las necesidades del cliente 48-72 horas aéreo o terrestre, terrestre en 3-5 días o 15-21 días por envío postal.
 
-use App\User;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
+## Zonas de entrega
 
-class UsersImport implements ToModel, WithBatchInserts
-{
-    public function model(array $row)
-    {
-        return new User([
-            'name' => $row[0],
-        ]);
-    }
-    
-    public function batchSize(): int
-    {
-        return 1000;
-    }
-}
-```
+Podemos diferenciar, según la zona donde el e-commerce va a vender sus productos, los siguientes destinos: 
 
-:::warning ToModel
-This concern **only** works with the `ToModel` concern.
-:::
+- Nacional: Pueden ser entregas locales, municipales, departamentales.
 
-:::tip Batch Size
-A batch size of `1000` will not be the most optimal situation for your import. Play around with this number to find the sweet spot.
-:::
-
+- Internacional: Pueden ser envíos  a Centroamérica, todo el continente Americano o al resto del mundo.

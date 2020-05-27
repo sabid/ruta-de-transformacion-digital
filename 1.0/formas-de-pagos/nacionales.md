@@ -2,8 +2,9 @@
 
 [[toc]]
 
-* BAC Honduras Ecomerce
-* Promerica
+* BAC Honduras Ecommerce
+* Banco Promerica
+* Banco Ficohsa
 * TENGO
 * Tigo Money
 
@@ -29,11 +30,8 @@ BAC Credomatic le ofrece una plataforma ágil y segura que le permite procesar v
 
 ### Requisitos
 Por la naturaleza de riesgo del e-commerce, toda solicitud de afiliación del servicio, pasará por un análisis previo para la definición de las condiciones de afiliación, con base el tipo de actividad comercial, si el cliente es conocido o no o si es nuevo.
-:::tip
-Horarios
-:::
 
-## Promerica Ecomerce
+## Promerica Ecommerce
 
 Banco Promerica pone a su disposición la herramienta CyberSource que le ofrece:
 
@@ -47,6 +45,10 @@ Banco Promerica pone a su disposición la herramienta CyberSource que le ofrece:
 * Optimizar: costos de operación
 * Disminuir: tasas de rechazo, tasas de fraude, riesgos de pago online, costos operativos
 * Habilitar: productos, nuevos modelos de negocio, canales de venta
+
+
+## Banco Ficohsa
+Tiene los servicion de pago por medio de un enlace web (FicoLink) y pago por medio de pasarela de pagos integrada en su sitio web
 
 ## TENGO
 Es una empresa de tecnología que brinda soluciones de pago y cobros electrónicos que busquen incrementar la eficiencia para las empresas afiliadas; así como mayor acceso, seguridad y conveniencia a los usuarios y la población.

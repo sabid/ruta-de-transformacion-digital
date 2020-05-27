@@ -4,318 +4,274 @@
 
 ## Introduction
 
-When `using` a package in your application, it's good to understand how the package functions behind the scenes. 
-Understanding the behind-the-scenes will make you feel more comfortable and confident using the maximum potential of the tool.
+Para que tu ecommerce o tienda online funcione es imprescindible que tengas una estrategia de marketing digital adaptada a tu tipo de negocio y a los productos y servicios que ofreces.
 
-The goal of this page is to give you a high-level overview of how Laravel Excel works. 
+Tienes dos maneras de aprender a crear esta estrategia.
 
-## Exports Lifecycle Overview
+- Hacer nuestro máster de Ecommerce y convertirte en un experto en todas las áreas relacionadas con tiendas online (no sólo marketing digital).
+- Seguir leyendo este post y empezar a aplicar una estrategia de marketing digital INFALIBLE para tu ecommerce hoy mismo.
 
-This section will try to give you an overview of how the export works behind the scenes.
+## Pasos para crear tu estrategia de marketing digital para tu ecommmerce
 
-### Export Object
+### 1. Definir tu funnel de ventas
+El primer paso para crear tu plan de marketing digital es entender el funnel de ventas de tu ecommerce.
 
-Everything starts with the `Export` object. This object **encapsulates** your entire export logic. 
-It both configures and handles the export logic.
+En este artículo explicamos más en profundidad en que consiste un funnel de ventas, pero en resumen es una representación de las fases concretas por las que pasan tus clientes desde que te conocen hasta que te compran y te recomiendan.
 
-A simple example of an export object is:
+#### El funnel de ventas de un ecommerce
+Es similar al de muchos otros negocios, pero tienes que adaptarlo a tu propia tienda online.
 
-```php
-<?php
+![An image](/assets/img/image-5.png)
 
-namespace App\Exports;
+El funnel de ventas de un ecommerce cuenta con 4 fases:
 
-use App\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
+1. Consciencia o awareness
+Aquí se trabaja la audiencia y la segmentación (intereses, gustos, datos demográficos)
 
-class UsersExport implements FromCollection
-{
-    public function collection()
-    {
-        return User::all();
-    }
-}
-```
+2. Consideración
+El usuario empieza a valorar la opción de comprarte (desde una visita a tu perfil de Instagram, un like, una visita a tu página web, una visita a tu producto…)
 
-If you want to read more about export objects, go to the architecture page of [export objects](/3.1/architecture/objects.html).
+3. Acción
+El usuario te compra o se registra a tu producto o servicio.
 
-### Passing on the Export object
+4. Recomendación / Recurrencia
+Te recomienda a otros usuarios, se hace fan, incluso aumenta la recurrencia de su compra. Tiene un efecto muy positivo para las otras etapas.
 
-Next the Export object will be passed on to the Laravel Excel package. The main entry point for this is the `Maatwebsite/Excel/Excel` class. This class can be called in multiple ways.
+En definitiva, estas etapas definen los que se conoce como el customer journey
 
-#### Facade
+Es importante entender qué necesidades tiene, qué siente, qué quiere y qué busca el cliente en cada una de las fases de este funnel.
 
-The easiest way to work with the `Excel` class is to use the `Maatwebsite\Excel\Facades\Excel` facade. 
-If you use [auto-discovery](https://laravel.com/docs/packages#package-discovery), you can use the alias `\Excel` directly instead of using the fully qualified namespace.
 
-#### Dependency injection
 
-You can inject the `Maatwebsite/Excel/Excel` manager class into your class, either via constructor injection 
-or method injection in case of a controller.
+### 2. Definir los objetivos de cada fase del funnel del ecommerce
+Estos son los objetivos de cada fase del funnel:
 
-```php
-<?php
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Excel;
+- Consciencia -> Atraer a mucha gente
+- Consideración -> Generar interés y confianza
+- Acción -> Que me compre
+- Fidelizar -> Que vuelva a comprar y nos recomiende
 
-class ExportController
-{
-    private $excel;
+Es fundamental tener en cuenta dos cosas:
 
-    public function __construct(Excel $excel)
-    {
-        $this->excel = $excel;
-    }
-    
-    public function exportViaConstructorInjection()
-    {
-        return $this->excel->download(new UsersExport, 'users.xlsx');
-    }
-    
-    public function exportViaMethodInjection(Excel $excel)
-    {
-        return $excel->download(new UsersExport, 'users.xlsx');
-    }
-}
-```
+- Hay que asignar objetivos muy concretos para poder medirlos. Un error típico es sólo fijarse en un objetivo final.
+- Tener en cuenta en qué fase está tu proyecto: si estás creando un proyecto, la fase más importante es la de consciencia (TOFU) por que quieres darte a conocer.
 
-#### Contract
 
-You can also use the `Maatwebsite\Excel\Exporter` interface to decouple more from the concrete Excel manager implementation. The contract offers the same methods as the `Excel` class. 
-It will make it easier to e.g. stub out the Exporter in your unit tests. The `Exporter` contract can be either injected via the constructor or a method in a controller.
+### 3. Elegir la estrategia: ¿Outbound o Inbound?
+Es importante saber qué estrategia utilizar en función de la fase en la que se encuentre tu proyecto, de los objetivos que tengas y también de los recursos con los que cuentes.
 
-```php
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Exporter;
+Existen dos formas de marketing digital que puedes utilizar en tu estrategia: Outbound marketing e Inbound marketing
 
-class ExportsController
-{
-    private $exporter;
+Estos son los diferentes canales que se utilizan para cada una de ellas:
 
-    public function __construct(Exporter $exporter)
-    {
-        $this->exporter = $exporter;
-    }
-    
-    public function export()
-    {
-        return $this->exporter->download(new UsersExport, 'users.xlsx');
-    }
-}
-```
+Canales outbound
 
-#### Container binding
+- Display
+- PPC
+- Social ads
+- Email Marketing
+- Influencer Marketing
+- Afiliados
 
-If you want to bind the `Maatwebsite\Excel\Excel` manager to your own class via a container binding, you can use the `excel` container binding.
+Canales Inbound:
+- Web/app/landing
+- SEO
+- Marketing de Contenidos
 
-```php
-$this->app->bind(YourCustomExporter::class, function() {
-    return new YourCustomExporter($this->app['excel']);
-});
-```
+Cada canal va a utilizarse de manera específica según la fase del embudo en la que nos encontremos y sobre todo según el objetivo que queramos conseguir en cada fase.
 
-#### Exportable trait
+### 4. Diseñar la estrategia de marketing digital para tu ecommerce por canal:
 
-If you prefer a sprinkle of magic, you can use the `Maatwebsite\Excel\Concerns\Exportable` trait in your `Export` object. This trait will expose a couple of methods that will make it possible to directly export an `Export` object.
+Estrategia Outbound
 
-```php
-namespace App\Exports;
+#### Display:
+Es un formato publicitario online en el que anuncios gráficos de distintos formatos (imagen, texto, vídeo…) se muestran en páginas o sitios de destino denominados soportes.
 
-use App\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\Exportable;
+Principalmente es para generar consciencia de marca o brand awareness, así que afecta sobre todo a la fase de consciencia.
 
-class UsersExport implements FromCollection
-{
-    use Exportable;
+Tienes que crear contenido de valor, más que intentar que nos compren.
 
-    public function collection()
-    {
-        return User::all();
-    }
-}
-```
+Y también a nivel de remarketing en display. Esto genera reputación y confianza para tus usuarios. Esto impactaría a la fase de consideración.
 
-You can now download the export without the need for the `facade` or `Excel` manager.
 
-```php
-return (new UsersExport)->download('users.xlsx');
-```
 
-Read more about the exportable trait in the [exportables](/3.1/exports/exportables.html) docs.
+#### PPC y Google Shopping
+Es la publicidad en buscadores. Para ecommerce corresponde a Shopping Ads donde te aparecerán todos tus productos en los buscadores. Tienes que diseñar la estrategia de keywords por las que te buscan tus clientes (puedes utilizar herramientas de SEO para esto)
 
-### Handling the Export object
+Estamos impactando a usuarios que están buscando activamente algo, así que es gente que está en la fase entre consideración y acción.
 
-#### Writer type detection
+Estrategia PPC:
 
-After using one of the above methods to pass on the `Export` object to the `Excel` manager, it will try to figure out what export it needs to be generated to. 
-This will be either based on the extension of the file, the explicitly passed writer type. You can find the extension to writer type mapping in the `excel.php` config, in the `extension_detector` section. 
-In case no writer type can be detected, a `Maatwebsite\Excel\Exceptions\NoTypeDetectedException` exception is thrown and the export process will be stopped.
+– Búsquedas asociadas a una necesidad (no marca): analizar keywords clave del sector.
 
-#### Starting the Writing process
+– Protección de marca: ¿por qué palabras nos buscan? menor inversión.
 
-The `Excel` manager will then delegate the handling to the `Maatwebsite\Excel\Writer`. The first action of the `Writer` is to register the event listeners that are registered. 
-Next it will create a new `PhpOffice\PhpSpreadsheet\Spreadsheet` instance that we will use to convert our `Export` object to.
+El método de pago es CPC (Coste por Click) es decir que sólo se paga por las visitas que recibes, este precio se fija con un sistema de subastas. Cuanta más competencia, más alto va a ser el CPC.
 
-The first event that is raised, is the `BeforeExport` event. This is raised just after the `Spreadsheet` instance is created and allows early access to it.
 
-#### Multiple sheets
 
-Next the `Writer` will determine if multiple sheets are configured, by checking for the `Maatwebsite\Excel\Concerns\WithMultipleSheets` concern.
+Social Ads:
+Es la publicidad en redes sociales en la que buscamos impactar un segmento al que nos interese. Es el motor de crecimiento de muchos ecommerce.
 
-Then it will delegate the further handling of each sheet to the `Maatwebsite\Excel\Sheet` class.
+Facebook Ads
+Twitter Ads
+Linkedin Ads
+Google ADS (Youtube)
+Importantísimo definir tu público objetivo para ver dónde se encuentra.
 
-#### Processing the sheets
+Una gran ventaja es el targeting: audiencias específicas, segmentar por infinitas variables, todo el mundo, todo el día.
 
-In the `Sheet` class, the most heavy lifting happens. It first will create a `PhpOffice\PhpSpreadsheet\Worksheet\Worksheet` instance. Then it will raise the `BeforeSheet` event which allows you to hook into the moment just before the sheet handling starts.
+También genera mucho engagement: Generar comunidad, likes seguidores, comentarios, viralidad.
 
-Then it will determine what kind of export we are dealing with: `FromQuery`, `FromArray`, `FromCollection` or `FromView`. Based on that it will start the connected export process.
+Podemos acompañar a nuestros usuarios a lo largo de todo el funnel, teniendo en cuenta que hay que diferenciar el tipo de contenido según la fase del funnel:
 
-- `FromView` will pass on the rendered `Blade` view to PhpSpreadsheet's `Html` Reader. That Reader will turn the table html into Excel cells. It also handles some inline styles (color and background color) and col/rowspans.
-- The **Query** passed with the `FromQuery` will automatically be chunked and each chunk will be appended to the Sheet. The chunking is done to limit the amount of Eloquent object it needs to keep in memory. It greatly reduces memory usage.
-- The entire array of Collection will directly be appended to the Sheet. 
+Consciencia: contenido en función de los intereses, branding y llamar la atención.
 
-When the `Sheet` starts appending records, it will first call the `map()` method if the `WithMapping` concern is used. This allows the `Export` object to format the data before it is inserted.
+Consideración: contenido informativo, captar datos, primera visita. Queremos que nos conozcan mejor, que continúen bajando en el embudo… y queremos conocerles mejor (leads).
 
-Then it will handling column formatting (`WithColumnFormatting` concern) and cell autosizing (`ShouldAutoSize`).
+Acción: Retargeting, producto en concreto, el curso por el que se ha interesado, el servicio por el que se ha interesado. Vamos a ser más «agresivos» a través de campañas de retargeting con el objetivo de que convierta.
 
-To close off the Sheet processing, it will raise a `AfterSheet` event.
+Las plataformas nos permiten cargar nuestras bases de datos para poder impactar a aquellos usuarios que ya nos han comprado o que son similares (lookalike).
 
-### Passing on to PhpSpreadsheet
+Así, vamos a impactar a gente que no nos conoce pero que comparte intereses, comportamientos, etc. con los que ya nos han comprado.
 
-After the sheets are processed, the writing process will start. The writing process is started by raising the `BeforeWriting` event; this allow you to hook into the process of writing.
-Next we will create a new `PhpSpreadsheet Writer` based on the writer type that was determined. Then it will save it to a temporary file and return that filepath to the `Excel` manager.
+Esto facilita muchísimo que lleguemos al público que realmente nos interesa.
 
-### Creating a Response
+Modelos de costes según el objetivo de la campaña:
 
-The `Excel` manager basically has 2 types of responses, it either starts the **download** process or it will **store** the file to disk.
+Alcance : CPM
+Tráfico a la web: CPC
+Conversión: CPA
+Lead: CPL
 
-#### Download the file
 
-We will take the temporary file that was returned by the `Writer` and use Laravel's `ResponseFactory` to create a `Symfony\Component\HttpFoundation\BinaryFileResponse`. When returning this response in your controller, it will start a download.
+Email Marketing:
+El email marketing es el envío (masivo o no) de correos electrónicos personalizados a tus usuarios o clientes. Cada correo tiene que ser personalizado según el comportamiento en la fase del funnel en la que esté el cliente.
 
-#### Storing the file
+Se envían tanto a bases de datos propias como de terceros.
 
-The storing of the file will be handled by Laravel's `Filesystem`. By default the file will be stored on your `default` disk, but you can also pass a custom disk via the `Excel::store()` method.
+Si nos dirigimos a la parte de arriba del funnel, a gente nueva o prospecting, es interesante hacerlo con base de datos de terceros y si nos dirigimos a la parte más baja del funnel con nuestra base de datos propia.
 
-## Imports Lifecycle Overview
+Se hace con herramientas digitales como Mailchimp o Active Campaign (se conectan muy fácilmente con Shopify).
 
-This section will try to give you an overview of how the import works behind the scenes.
+Estrategias de email marketing:
 
-### Import Object
+Email de bienvenida (Consciencia)
+Email con nuevos catálogos, nuevas colecciones, nuevos productos, etc. (Consideración)
+Email de confirmación de compra (Acción) y seguimiento del producto
+Email de feedback/pedir recomendación (Recomendación/Recurrencia)
 
-Everything starts with the `Import` object. This object **encapsulates** your entire import logic. 
-It both configures and handles the import logic.
 
-A simple example of an import object is:
+Influencer Marketing
+Esta estrategia se basa en que una persona que tenga influencia en las redes sociales promocione nuestro producto para que podamos llegar a sus seguidores que sean nuestro público objetivo.
 
-```php
-namespace App\Imports;
+Estrategia de influencer:
 
-use App\User;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+Buscar influencers en nuestros sector
+Regalarles nuestros productos para que nos promocionen
+Negociar por la promoción de tu producto
+Que transmitan tu propuesta de valor
+Afiliados: promocionan tus productos o servicios
+Un afiliado promociona un producto o servicio de un anunciante a cambio de una comisión por conversión.
 
-class UsersImport implements ToCollection
-{
-    public function collection(Collection $rows)
-    {
-        foreach ($rows as $row) 
-        {
-            User::create([
-                'name' => $row[0],
-            ]);
-        }
-    }
-}
-```
+El afiliado utiliza un enlace hacia un producto de tu tienda online derivando tráfico a tu web. En ese momento se activa una cookie registrando que esa visita ha venido de la web del afiliado.
 
-If you want to read more about imports objects, go to the architecture page of [imports objects](/3.1/architecture/objects.html).
 
-### Passing on the Import object
 
-Next the Import object will be passed on to the Laravel Excel package. The main entry point for this is the `Maatwebsite/Excel/Excel` class. This class can be called in the same way as outlined in the Export lifecycle.
+Estrategia Inbound
+Web/app
+Tu web de ecommerce o tienda online tiene que estar perfectamente optimizada para facilitar el proceso de compra del cliente. Aquí entra en juego el UX o experiencia de usuario que tienes que tener muy en cuenta.
 
-#### Contract
+Tienes que optimizar tu ecommerce según los objetivos:
 
-You can also use the `Maatwebsite\Excel\Importer` interface to decouple more from the concrete Excel manager implementation. The contract offers the same methods as the `Excel` class. 
-It will make it easier to e.g. stub out the Importer in your unit tests. The `Importer` contract can be either injected via the constructor or the method of a controller.
+Crear confianza: Diseño y usabilidad, seguridad, enlazar a RRSS, datos de contacto, políticas (devoluciones, envíos…)
+Facilitar que encuentren lo que buscan: breadcrumbs, mega menú, logo enlazado a la Home, 3 clicks, buscador optimizado.
+Ayudar a tomar decisiones: valoraciones y testimonios, CTA, chat en vivo, urgencia, información relevante, productos relacionados, etc.
+Recuperación de carritos abandonados: Envío automatizado de emails
+Optimización del check out: Todo en una página, registro corto, hilo conductor, evitar sorpresas, refuerza confianza, facilidades de pago, etc.
 
-```php
-use App\Imports\UsersImport;
-use Maatwebsite\Excel\Importer;
 
-class ImportsController
-{
-    private $importer;
+SEO (Search Engine Optimization)
+Es la estrategia de posicionamiento de tu web en los buscadores como Google.
 
-    public function __construct(Importer $importer)
-    {
-        $this->importer = $importer;
-    }
-    
-    public function export()
-    {
-        return $this->importer->import(new UsersImport, 'users.xlsx');
-    }
-}
-```
+Es muy importante pues trae tráfico muy cualificado ya que te posicionas por búsquedas que hacen los usuarios que ya están buscando un producto o servicio como el tuyo.
 
-#### Importable trait
+Se basa en un estudio de palabras clave o keywords que tus usuarios utilizan en los buscadores para encontrarte.
 
-If you prefer a sprinkle of magic, you can use the `Maatwebsite\Excel\Concerns\Importable` trait in your `Import` object. This trait will expose a couple of methods that will make it possible to directly import an `Import` object.
+Puedes ver nuestro post completo de SEO para Ecommerce
 
-```php
-namespace App\Imports;
 
-use App\User;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\Importable;
 
-class UsersImport implements ToCollection
-{
-    use Importable;
+Marketing de contenidos
+El marketing de contenidos sirve para atraer y retener a los clientes a lo largo del funnel con contenido relevante y de calidad. Hay que tener claro cuál es el objetivo de cada contenido.
 
-    ...
-}
-```
+Según la fase del funnel el contenido va a ser diferente.
 
-You can now import without the need for the `facade` or `Excel` manager.
+Consciencia: evitar contenido comercial. Contenido dirigido a que nos conozcan. Contenido más educativo e informativo, qué problema resuelve nuestro producto. También contenido divertido y viral.
 
-```php
-(new UsersImport)->import('users.xlsx');
-```
+Formatos: Blog, Webinars, Guías, Canal de Youtube, Tests…
 
-Read more about the importable trait in the [importables](/3.1/imports/importables.html) docs.
+Consideración: que conozcan nuestra propuesta de valor. Contenido que demuestre que somos la solución a su necesidad. Tienen que entender nuestro producto o servicio.
 
-### Handling the Import object
+Formatos: Newsletter, Casos de estudio, Demo/prueba gratuita…
 
-#### Reader type detection
+Acción: darle el último empujón con el marketing de contenidos. Hay que hacerle ver que el valor que vamos a generar es mucho mayor que el precio a pagar.
 
-After using one of the above methods to pass on the `Import` object to the `Excel` manager, it will try to figure out what reader type it is . 
-This will be either based on the extension of the file or the explicitly passed reader type. You can find the extension to reader type mapping in the `excel.php` config, in the `extension_detector` section. 
-In case no reader type can be detected, a `Maatwebsite\Excel\Exceptions\NoTypeDetectedException` exception is thrown and the import process will be stopped.
+Formatos: testimonios positivos, reseñas de productos, descripción de productos, tablas comparativas, explicación de nuestras políticas de envío y devoluciones, guía de tallas, una buena página de FAQs.
 
-#### Starting the Reading process
+Retención/Recomendación: hay que conseguir que nos vuelva a comprar o que nos recomiende. Hay que generar valor después de la compra.
 
-The `Excel` manager will then delegate the handling to the `Maatwebsite\Excel\Reader`. The first action of the `Reader` is to register the event listeners that are registered. 
-It will copy the file from Laravel's `Filesystem` to the local filesystem, so PhpSpreadsheet can read it. 
-Next it will create a PhpSpreadsheet `Reader` based on the reader type that was given and load the file into a `PhpOffice\PhpSpreadsheet\Spreadsheet` instance.
+Formatos: guías de soporte, cursos de onboarding, grupos de WhatsApp, flows de email (agradecimiento, feedback, etc.)
 
-Next it will create a new `PhpOffice\PhpSpreadsheet\Spreadsheet` instance that we will use to read our `Import` object from.
 
-The first event that is raised, is the `BeforeImport` event. This is raised just after the `Spreadsheet` instance is loaded and allows early access to it.
 
-#### Multiple sheets
+1. Definir las métricas del funnel de compra de ecommerce
+Es fundamental poder medir los resultados que obtenemos con nuestra estrategia de marketing digital en cada fase.
 
-Next we will determine if we are dealing with multiple sheets. This is done based on the `WithMultipleSheets` concern.
 
-#### Processing the sheets
+Tenemos 3 tipos de métricas principales para nuestro ecommerce:
 
-Then each Sheet gets processed. This process gets started off by raising the `BeforeSheet` event. 
-Then it will either import it to a Collection, an array or handle each row as an Eloquent model.
+1. Indicadores brutos
 
-- When using `ToModel`, each returned model will be persisted via Eloquent. When using this in combination with `WithBatchInserts`, it will defer the persistence till the batch is complete and then insert them as one batch in the database.
-- When using `ToCollection` or `ToArray`, the entire dataset will be passed to the Import method and the user can determine itself how to use it.
+Son los KPIs brutos para cada fase del funnel.
 
-The sheet handling is ended by raising the `AfterSheet` event.
+Por ejemplo, en la parte superior del funnel: el número de usuarios que hemos impactado (alcance) o el número de veces que se ha visto el post/publicación (impresiones).
+
+2. Ratio de conversión
+
+Miden el porcentaje de usuarios que llevan a cabo la acción que nosotros queremos para cada momento del customer journey.
+
+El ratio de conversión más relevante de un ecommerce serán las ventas / visitas únicas
+
+Pero hay otras muchas conversiones:
+
+– Visitas al producto / visitas totales
+– Carritos / visitas al producto
+– Leads / visitas a landing page
+etc.
+
+La clave de los ratios de conversión es que nos informan de la calidad del tráfico que estamos atrayendo.
+
+3. Inversión /Ingresos
+
+Y no podía faltar la perspectiva económica: cuánto estamos invirtiendo y cuánto estamos generando por canal y por fase del funnel.
+
+
+
+Tener un dashboard para KPIS
+Un dashboard o cuadro de mandos o panel de control es una herramienta de gestión de información que monitoriza y muestra de manera visual los indicadores clave de desempeño (KPIs) tales como:
+
+
+-KPIs de tráfico: orígenes, visitas, tiempo en el sitio, páginas vistas, etc.
+– KPIs de conversión: ratios, funnel, etc.
+– KPIs de ingresos: unidades vendidas, ingresos totales, etc.
+
+Es una herramienta esencial si queremos gestionar y mejorar nuestras métricas. La clave está en que debe reflejar los datos que nos permitan tomar decisiones.
+
+
+
+6. Definir el modelo de costes:
+Es importante definir el modelo de costes para tus campañas de marketing digital para así medir el rendimiento de estas en cada una de las fases del funnel.
+
+
+Estos modelos de costes son comunes para todas las plataformas.

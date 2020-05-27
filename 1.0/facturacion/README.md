@@ -3,7 +3,7 @@ pageClass: no-toc
 ---
 
 # Facturación Electrónica
-Software que 
+Software que nos ayuda a crear facturas de forma electrónica
 
 # SAR
 Esta trabajando de manera virtual
@@ -30,5 +30,3 @@ Llenar el formulario Declaración Jurada de Inscripción al Régimen de Facturac
 https://www.sar.gob.hn/facturacion/ 
 
 ## Hacer tramites en linea
-
-:page_facing_up: Find the imported users in your database!
