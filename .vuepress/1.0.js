@@ -58,7 +58,7 @@ module.exports = [
         ]),
     },
     {
-        title: 'Taller Tienda WooCommerce',
+        title: 'Tienda WooCommerce',
         collapsable: false,
         children: prefix('tienda-en-linea/woocommerce', [
             '',

@@ -2,12 +2,9 @@
 pageClass: no-toc
 ---
 
-# WooCommerce
+# Instalar WooCommerce
 
 WooCommerce es una plataforma de comercio electrónico de código abierto personalizable construida en WordPress. Comience rápidamente y avance.
-
-
-## Instalar WooCommerce
 
 El complemento principal de WooCommerce se puede instalar y desinstalar igual que otros complementos de WordPress. La instalación y configuración completas de WooCommerce en su sitio es un paso opcional adicional para ayudar con la configuración completa, esto está disponible en el asistente de configuración.
 

@@ -2,7 +2,7 @@
 pageClass: no-toc
 ---
 
-# Asistente de configuración de WooCommerce
+# Asistente de configuración
 
 Tener una plataforma de comercio electrónico personalizable significa que hay muchas configuraciones disponibles para ajustar. ¡El asistente de configuración lo guía a través de todos los pasos necesarios para configurar su tienda y prepararla para comenzar a vender!
 

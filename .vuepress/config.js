@@ -56,13 +56,13 @@ module.exports = {
         repo: 'sabid/ruta-de-transformacion-digital',
         docsRepo: 'contacto@negociosonline.net',
         docsBranch: 'master',
-        editLinks: true,
+        editLinks: false,
         editLinkText: 'Tienes consultas escríbenos contacto@negociosonline.net',
         displayAllHeaders: false,
         sidebarDepth: 0,
         algolia: {
-            apiKey: 'aadef574be1f9252bb48d4ea09b5cfe5',
-            indexName: 'demo_ecommerce',
+            apiKey: 'b62da443ab38d8cef2e7b0662f61c172',
+            indexName: 'transformacion_digital',
             algoliaOptions: {'facetFilters': ["version:1.0"]},
         },
 
