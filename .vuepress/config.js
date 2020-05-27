@@ -61,8 +61,8 @@ module.exports = {
         displayAllHeaders: false,
         sidebarDepth: 0,
         algolia: {
-            apiKey: 'b62da443ab38d8cef2e7b0662f61c172',
-            indexName: 'transformacion_digital',
+            apiKey: '',
+            indexName: '',
             algoliaOptions: {'facetFilters': ["version:1.0"]},
         },
 
